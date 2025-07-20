@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      color: #333;
+    }
+    form {
+      margin-bottom: 20px;
+      padding: 15px;
+      background: #fff;
+      border-radius: 8px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      text-align: left;
+    }
+    button {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .delete-btn {
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Contact Management System</h2>
+
+  <form id="contactForm">
+    <input type="text" id="name" placeholder="Enter name" required />
+    <input type="text" id="phone" placeholder="Enter phone number" required />
+    <input type="email" id="email" placeholder="Enter email address" required />
+    <button type="submit">Add Contact</button>
+  </form>
+
+  <table id="contactTable">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const tableBody = document.querySelector('#contactTable tbody');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      if (name && phone && email) {
+        const row = document.createElement('tr');
+
+        row.innerHTML = `
+          <td>${name}</td>
+          <td>${phone}</td>
+          <td>${email}</td>
+          <td><button class="delete-btn">Delete</button></td>
+        `;
+
+        tableBody.appendChild(row);
+        form.reset();
+      }
+    });
+
+    tableBody.addEventListener('click', function (e) {
+      if (e.target.classList.contains('delete-btn')) {
+        const row = e.target.closest('tr');
+        tableBody.removeChild(row);
+      }
+    });
+  </script>
+
+</body>
+</html>
